@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: discovery-demo-app
+  name: discovery-demo-app
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: discovery-demo-app
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: discovery-demo-app
+    spec:
+      containers:
+        - image: us.icr.io/danitrod-demo/discovery-demo-app:v1
+          imagePullPolicy: IfNotPresent
+          name: discovery-demo-app
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          env:
+            - name: DISCOVERY_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: discovery-credentials
+                  key: api-key
+            - name: DISCOVERY_URL
+              valueFrom:
+                secretKeyRef:
+                  name: discovery-credentials
+                  key: url
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30

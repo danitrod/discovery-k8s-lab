@@ -20,7 +20,8 @@
   },
   "dependencies": {
     "fastify": "^3.13.0",
-    "fastify-cors": "^5.2.0",
-    "ibm-watson": "^6.0.3"
+    "fastify-static": "^4.0.1",
+    "ibm-watson": "^6.0.3",
+    "pino-pretty": "^4.7.1"
   }
 }

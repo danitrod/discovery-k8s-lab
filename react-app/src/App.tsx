@@ -19,7 +19,7 @@ interface IResult {
   crawl_date: string;
 }
 
-const API_ENDPOINT = 'http://localhost:7000/api/query';
+const API_ENDPOINT = '/api/query';
 
 const App = () => {
   const [query, setQuery] = useState('');
@@ -43,9 +43,7 @@ const App = () => {
         body: JSON.stringify({ query }),
       });
       if (!rawResponse.ok) {
-        setError(
-          'Failed request. Please make sure the correct endpoint is set.'
-        );
+        setError('There was a network error. Please try again.');
       } else {
         const response = await rawResponse.json();
         console.log(results);
@@ -59,7 +57,7 @@ const App = () => {
       }
     } catch (err) {
       console.error(err);
-      setError('Failed request. Please make sure the correct endpoint is set.');
+      setError('There was a network error. Please try again.');
     }
 
     setIsLoading(false);
@@ -76,6 +74,7 @@ const App = () => {
         className='bx--grid'
         style={{
           marginTop: '4rem',
+          marginBottom: '4rem',
         }}
       >
         <div className='bx--row'>

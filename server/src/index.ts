@@ -1,7 +1,8 @@
 import fastify, { FastifyRequest } from 'fastify';
-import fastifyCors from 'fastify-cors';
+import fastifyStatic from 'fastify-static';
 import { IamAuthenticator } from 'ibm-watson/auth';
 import DiscoveryV1 from 'ibm-watson/discovery/v1';
+import path from 'path';
 
 // Check for credentials
 if (!process.env.DISCOVERY_API_KEY || !process.env.DISCOVERY_URL) {
@@ -20,14 +21,17 @@ const discovery = new DiscoveryV1({
   url: process.env.DISCOVERY_URL,
 });
 
-const server = fastify();
+const server = fastify({ logger: { level: 'info', prettyPrint: true } });
 
-server.register(fastifyCors, {
-  origin: '*',
+// Serve front end
+server.register(fastifyStatic, {
+  root: path.join(__dirname, '..', 'public'),
 });
 
+// Add query post request
 type QueryRequest = FastifyRequest<{ Body: { query: string } }>;
 server.post('/api/query', async (request: QueryRequest) => {
+  console.log('New request from', request.hostname);
   let response;
   try {
     const discoveryResponse = await discovery.query({
@@ -44,6 +48,7 @@ server.post('/api/query', async (request: QueryRequest) => {
   return response;
 });
 
+// Run
 const port = process.env.PORT || 7000;
 server.listen(port, (err, address) => {
   if (err) {
