@@ -2,7 +2,7 @@
 
 ## Introduction
 
-In this lab, we will deploy a simple app on Kubernetes that serves a web app and communicates with Watson Discovery. The [UI app](./react-app) will be served a Node.js back end running Fastify. The [back end](./server) will then make queries to Watson Discovery and return the results.
+In this lab, we will deploy a simple app on Kubernetes that serves a web app and communicates with Watson Discovery. The [UI app](./react-app) will be served by a Node.js back end running Fastify. The [back end](./server) will then make queries to Watson Discovery and return the results.
 
 ## Prerequisites
 
@@ -26,7 +26,7 @@ And finally, create a free [Watson Discovery](https://cloud.ibm.com/catalog/serv
 
 ## Step-by-step
 
-This step by step guide assumes a Linux/Unix like shell usage. Slight adpatations might be necessary for different CLI shells.
+This step-by-step guide assumes a Linux/Unix like shell usage. Slight adpatations might be necessary for different CLI shells.
 
 ### Step 1
 
@@ -56,7 +56,7 @@ ibmcloud cr namespace-add $ICR_NAMESPACE
 
 ### Step 4
 
-Let's build the apps. Build a Docker image for the apps, tag and push them to ICR under your namespace:
+Let's build the app. Build a Docker image for the app, tag and push it to ICR under your namespace:
 
 ```sh
 export APP_IMAGENAME=us.icr.io/$ICR_NAMESPACE/discovery-demo-app:v1
@@ -95,7 +95,7 @@ Now we will deploy our built image to Kubernetes. First, update the [deployment.
 kubectl apply -f server/deployment.yaml
 ```
 
-_In case you're wondering, the `deployment.yaml` file can be generated with `kubectl create deployment <deployment_name> --image=<image_name> --port <port> --dry-run=client -o yaml > deployment.yaml`. We just added the configuration to use the secret as environment variables._
+_In case you're wondering, the `deployment.yaml` file can be generated with `kubectl create deployment <deployment_name> --image=<image_name> --port <port> --dry-run=client -o yaml > deployment.yaml`. The yaml file we used is just additionally configured to use the secret as environment variables._
 
 ### Step 8
 
@@ -127,10 +127,10 @@ Get your worker node's public IP. You can do that by running the following comma
 ibmcloud ks worker ls <your_cluster_name> # Cluster name is same as in step 5
 ```
 
-That will output the ID of the worker in your cluster, together with its public IP and private IPs. Copy the public IP as we will use it next.
+That will output the ID of the worker in your cluster, together with its public and private IPs. Copy the public IP as we will use it next.
 
 ### Step 11
 
-Access the app! The URL should be formatted like this: `http://<worker_ip>:<load_balancer_port>`. You can access it directly from your browser and see the magic happen. Try out a couple of queries for Watson Discovery news!
+Access the app! The URL should be formatted like this: `http://<worker_ip>:<node_port>`. You can access it directly from your browser and see the magic happen. Try out a couple of queries for Watson Discovery news!
 
 ![Screenshot](./doc/images/screenshot.png)
