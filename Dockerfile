@@ -25,6 +25,7 @@ RUN yarn install --frozen-lockfile
 RUN yarn build
 
 ENV PORT 8080
+ENV NEW_RELIC_NO_CONFIG_FILE=true
 
 EXPOSE 8080
 CMD [ "yarn", "start" ]

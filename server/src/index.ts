@@ -3,6 +3,7 @@ import fastifyStatic from 'fastify-static';
 import { IamAuthenticator } from 'ibm-watson/auth';
 import DiscoveryV1 from 'ibm-watson/discovery/v1';
 import path from 'path';
+require('newrelic');
 
 // Check for credentials
 if (!process.env.DISCOVERY_API_KEY || !process.env.DISCOVERY_URL) {

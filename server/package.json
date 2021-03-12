@@ -22,6 +22,7 @@
     "fastify": "^3.13.0",
     "fastify-static": "^4.0.1",
     "ibm-watson": "^6.0.3",
+    "newrelic": "^7.1.3",
     "pino-pretty": "^4.7.1"
   }
 }
