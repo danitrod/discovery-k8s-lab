@@ -81,15 +81,15 @@ The cluster name is the one you chose when creating it. In case you forgot, you 
 For our back end to make requests to Watson Discovery, it will need the Discovery instance credentials, which will be defined by two environment variables. We will create the credentials as a Kubernetes secret, then inject them in the app by configuring environment variables on the [deployment yaml file](./server/deployment.yaml). You can find your `APIKEY` and `URL` for Watson Discovery by going to your [IBM Cloud resource list](https://cloud.ibm.com/resources), and clicking on your Watson Discovery instance under `Services`. Store them in environment variables as below and create the secret:
 
 ```sh
-export $DISCOVERY_APIKEY=<discovery_apikey>
-export $DISCOVERY_URL=<discovery_url>
+export DISCOVERY_APIKEY=<discovery_apikey>
+export DISCOVERY_URL=<discovery_url>
 
 kubectl create secret generic discovery-credentials --from-literal=api-key=$DISCOVERY_APIKEY --from-literal=url=$DISCOVERY_URL
 ```
 
 ### Step 7
 
-Now we will deploy our built image to Kubernetes. First, update the [deployment.yaml](./server/deployment.yaml) file to match your image name. You should update the line 24's image value - updating just the namespace will do just fine. After doing that, we can deploy:
+Now we will deploy our built image to Kubernetes. First, update the [deployment.yaml](./server/deployment.yaml) file to match your image name. You should update the line 24's image value - updating just the namespace will do just fine. **This is important!** Not changing the image name will cause your pod to not find any images. After doing that, we can deploy:
 
 ```sh
 kubectl apply -f server/deployment.yaml
@@ -124,7 +124,7 @@ Take note of the port. You will use it to access the app.
 Get your worker node's public IP. You can do that by running the following command:
 
 ```sh
-ibmcloud ks worker ls <your_cluster_name> # Cluster name is same as in step 5
+ibmcloud ks worker ls -c <your_cluster_name> # Cluster name is same as in step 5
 ```
 
 That will output the ID of the worker in your cluster, together with its public and private IPs. Copy the public IP as we will use it next.
