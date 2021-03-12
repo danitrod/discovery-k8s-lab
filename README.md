@@ -26,7 +26,7 @@ And finally, create a free [Watson Discovery](https://cloud.ibm.com/catalog/serv
 
 ## Step-by-step
 
-This step-by-step guide assumes a Linux/Unix like shell usage. Slight adpatations might be necessary for different CLI shells.
+This step-by-step guide assumes a Linux/Unix like shell usage. Slight adaptations might be necessary for different CLI shells.
 
 ### Step 1
 
@@ -134,3 +134,25 @@ That will output the ID of the worker in your cluster, together with its public 
 Access the app! The URL should be formatted like this: `http://<worker_ip>:<node_port>`. You can access it directly from your browser and see the magic happen. Try out a couple of queries for Watson Discovery news!
 
 ![Screenshot](./doc/images/screenshot.png)
+
+### Step 12
+
+Congratulations, you now have an app running! We want to make sure it keeps running smoothly, so let's set up Observability with New Relic.
+
+First [register for a free New Relic account](https://newrelic.com/signup?utm_campaign=fy21-q4-dev_eco-all-ptnr-event-none-nr_org&utm_medium=event&utm_source=ptnr&utm_content=nr_org&fiscal_year=fy21&quarter=q4&program=dev_eco&ad_type=none&geo=all)
+
+Then 
+[log in to your New Relic account](https://one.newrelic.com/) and follow the guided install for Kubernetes to get overall visibility into our Kubernetes cluster.
+
+We also want detailed application monitoring, to get that, we only need to update the `server/deployment.yaml` file and uncomment the `NEW_RELIC_LICENSE_KEY` and `NEW_RELIC_APP_NAME` environment variable definitions.
+
+Now redeploy our app:
+```sh
+kubectl apply -f server/deployment.yaml
+```
+
+_The Node.js app is already instrumented with New Relic:_
+* _The New Relic library was imported with a `require('newrelic');` in the main module (`src/index.ts`)_
+* _The `package.json` file includes `newrelic` as a dependency_
+
+Navigate to the New Relic Kubernetes Cluster Explorer and see what's happening in your cluster. If you want to learn more about the Kubernetes Cluster Explorer, watch [this video](https://www.youtube.com/watch?v=RKaEt26HjhI&ab_channel=NewRelic)
