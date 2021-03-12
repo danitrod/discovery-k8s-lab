@@ -2,7 +2,7 @@
 
 ## Introduction
 
-In this lab, we will deploy a simple app on Kubernetes that serves a web app and communicates with Watson Discovery. The [UI app](./react-app) will be served by a Node.js back end running Fastify. The [back end](./server) will then make queries to Watson Discovery and return the results.
+In this lab, we will deploy a simple app on Kubernetes that serves a web app and communicates with Watson Discovery. The [UI app](./react-app) will be served by a Node.js back end running Fastify. The [back end](./server) will then make queries to Watson Discovery and return the results. Finally, we will setup our cluster for Full Stack Observability with New Relic to easily make sure everything is running ok in our cluster and analyze some metrics, logging and more.
 
 ## Prerequisites
 
@@ -141,8 +141,8 @@ Congratulations, you now have an app running! We want to make sure it keeps runn
 
 First [register for a free New Relic account](https://newrelic.com/signup?utm_campaign=fy21-q4-dev_eco-all-ptnr-event-none-nr_org&utm_medium=event&utm_source=ptnr&utm_content=nr_org&fiscal_year=fy21&quarter=q4&program=dev_eco&ad_type=none&geo=all)
 
-Then 
-[log in to your New Relic account](https://one.newrelic.com/) and follow the guided install for Kubernetes. During the guided install you will have to:
+Then [log in to your New Relic account](https://one.newrelic.com/) and follow the guided install for Kubernetes. During the guided install you will have to:
+
 1. Give your cluster a meaningful name
 1. Accept all setup options
 1. Choose `Manifest`
@@ -153,12 +153,24 @@ Then
 We also want detailed application monitoring, and to get that, we only need to update the `server/deployment.yaml` file and uncomment the `NEW_RELIC_LICENSE_KEY` and `NEW_RELIC_APP_NAME` environment variable definitions.
 
 Now redeploy our app:
+
 ```sh
 kubectl apply -f server/deployment.yaml
 ```
 
 _The Node.js app is already instrumented with New Relic:_
-* _The New Relic library was imported with a `require('newrelic');` in the main module (`src/index.ts`)_
-* _The `package.json` file includes `newrelic` as a dependency_
 
-Now navigate to the New Relic Kubernetes Cluster Explorer and see what's happening in your cluster. If you want to learn more about the Kubernetes Cluster Explorer, watch [this video](https://www.youtube.com/watch?v=RKaEt26HjhI&ab_channel=NewRelic)
+- _The New Relic library was imported with a `require('newrelic');` in the main module (`src/index.ts`)_
+- _The `package.json` file includes `newrelic` as a dependency_
+
+Now navigate to the New Relic Kubernetes Cluster Explorer and see what's happening in your cluster.
+
+If you filter by the `discovery-demo-app` deployment, you can see the status of the running pod (click on the pod to see its status):
+
+![New Relic Dashboard](./doc/images/dashboard.png)
+
+You can also see the response times for your service, do that by going to `Explorer > APM` and searching for `discovery-demo`.
+
+![Service response time](./doc/images/response-time.png)
+
+Much more can be done with the dashboard. If you want to learn more about the Kubernetes Cluster Explorer, watch [this video](https://www.youtube.com/watch?v=RKaEt26HjhI&ab_channel=NewRelic).
