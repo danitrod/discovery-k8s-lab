@@ -31,7 +31,6 @@ server.register(fastifyStatic, {
 // Add query post request
 type QueryRequest = FastifyRequest<{ Body: { query: string } }>;
 server.post('/api/query', async (request: QueryRequest) => {
-  console.log('New request from', request.hostname);
   let response;
   try {
     const discoveryResponse = await discovery.query({
@@ -49,8 +48,8 @@ server.post('/api/query', async (request: QueryRequest) => {
 });
 
 // Run
-const port = process.env.PORT || 7000;
-server.listen(port, (err, address) => {
+const port = process.env.PORT ? parseInt(process.env.PORT) : 7000;
+server.listen({ port, host: '0.0.0.0' }, (err, address) => {
   if (err) {
     console.error(err);
     process.exit(1);

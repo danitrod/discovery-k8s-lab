@@ -19,7 +19,7 @@ COPY server/package.json ./
 COPY server/yarn.lock ./
 COPY server/tsconfig.json ./
 COPY server/src src/
-COPY --from=SPA /usr/src/app/build server/public/
+COPY --from=SPA /usr/src/app/build public/
 
 RUN yarn install --frozen-lockfile
 RUN yarn build
