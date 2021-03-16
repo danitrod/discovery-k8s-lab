@@ -2,7 +2,7 @@
 
 ## Introduction
 
-In this lab, we will deploy a simple app on Kubernetes that serves a web app and communicates with Watson Discovery. The [UI app](./react-app) will be served by a Node.js back end running Fastify. The [back end](./server) will then make queries to Watson Discovery and return the results. Finally, we will setup our cluster for Full Stack Observability with New Relic to easily make sure everything is running ok in our cluster and analyze some metrics, logging and more.
+In this lab, we will deploy a simple app, that serves a Single Page Application (SPA) and communicates with Watson Discovery, on Kubernetes. The [SPA](./react-app) will be served by a Node.js back end running [Fastify](https://fastify.io). The [back end](./server) will then make queries to Watson Discovery and return the results. Finally, we will setup our cluster for Full Stack Observability with New Relic to easily make sure everything is running ok in our cluster and analyze some metrics, logging and more.
 
 ## Prerequisites
 
