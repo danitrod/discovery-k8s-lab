@@ -1,4 +1,4 @@
-# Discovery Kubernetes Lab
+# Deploying a web application to IBM Kubernetes Service
 
 ## Introduction
 
