@@ -1,4 +1,4 @@
-# Deploying a web application to IBM Kubernetes Service
+# Deploy a web application on IBM Kubernetes Service
 
 ## Introduction
 
