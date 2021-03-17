@@ -139,7 +139,7 @@ Access the app! The URL should be formatted like this: `http://<worker_ip>:<node
 
 Congratulations, you now have an app running! We want to make sure it keeps running smoothly, so let's set up Observability with New Relic.
 
-First [register for a free New Relic account](https://newrelic.com/signup?utm_campaign=fy21-q4-dev_eco-all-ptnr-event-none-nr_org&utm_medium=event&utm_source=ptnr&utm_content=nr_org&fiscal_year=fy21&quarter=q4&program=dev_eco&ad_type=none&geo=all)
+First [register for a free New Relic account](https://newrelic.com/signup?utm_source=callforcode2021)
 
 Then [log in to your New Relic account](https://one.newrelic.com/) and follow the guided install for Kubernetes. During the guided install you will have to:
 
@@ -173,4 +173,4 @@ You can also see the response times for your service, do that by going to `Explo
 
 ![Service response time](./doc/images/response-time.png)
 
-Much more can be done with the dashboard. If you want to learn more about the Kubernetes Cluster Explorer, watch [this video](https://www.youtube.com/watch?v=RKaEt26HjhI&ab_channel=NewRelic).
+Much more can be done within New Relic One. If you want to learn more about the Kubernetes Cluster Explorer, watch [this video](https://www.youtube.com/watch?v=RKaEt26HjhI&ab_channel=NewRelic).
